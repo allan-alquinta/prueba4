@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "./firebase-config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, updateDoc } from "firebase/firestore";
 
 function Formulario() {
   const [datos, setDatos] = useState({
@@ -16,6 +16,7 @@ function Formulario() {
   const [indiceEditar, setIndiceEditar] = useState(null);
   const [mensaje, setMensaje] = useState("");
 
+  
   useEffect(() => {
     const datosGuardados = localStorage.getItem("registros");
     if (datosGuardados) {
@@ -23,9 +24,28 @@ function Formulario() {
     }
   }, []);
 
+  
   useEffect(() => {
     localStorage.setItem("registros", JSON.stringify(registros));
   }, [registros]);
+
+  
+  useEffect(() => {
+    const obtenerDatosFirestore = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "actividades"));
+        const datosFirestore = [];
+        querySnapshot.forEach((docu) => {
+          datosFirestore.push({ ...docu.data(), firebaseId: docu.id });
+        });
+        setRegistros(datosFirestore);
+      } catch (error) {
+        console.error("Error al cargar datos desde Firestore:", error);
+      }
+    };
+
+    obtenerDatosFirestore();
+  }, []);
 
   const handleChange = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value });
@@ -63,17 +83,24 @@ function Formulario() {
     const nuevoDato = { ...datos };
 
     if (modoEdicion) {
-      const nuevos = [...registros];
-      nuevos[indiceEditar] = nuevoDato;
-      setRegistros(nuevos);
-      setMensaje("Registro actualizado correctamente.");
+      const idFirebase = registros[indiceEditar].firebaseId;
+      const ref = doc(db, "actividades", idFirebase);
+      try {
+        await updateDoc(ref, nuevoDato);
+        const nuevos = [...registros];
+        nuevos[indiceEditar] = { ...nuevoDato, firebaseId: idFirebase };
+        setRegistros(nuevos);
+        setMensaje("Registro actualizado correctamente.");
+      } catch (error) {
+        console.error("Error al actualizar en Firestore:", error);
+      }
       setModoEdicion(false);
       setIndiceEditar(null);
     } else {
-      setRegistros([...registros, nuevoDato]);
-      setMensaje("Registro creado correctamente.");
       try {
-        await addDoc(collection(db, "actividades"), nuevoDato);
+        const docRef = await addDoc(collection(db, "actividades"), nuevoDato);
+        setRegistros([...registros, { ...nuevoDato, firebaseId: docRef.id }]);
+        setMensaje("Registro creado correctamente.");
       } catch (error) {
         console.error("Error al guardar en Firestore:", error);
       }
