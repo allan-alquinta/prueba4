@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { db } from "./firebase-config";
+import { collection, addDoc } from "firebase/firestore";
 
 function Formulario() {
   const [datos, setDatos] = useState({
@@ -44,7 +46,7 @@ function Formulario() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const nombreDuplicado = registros.some(
@@ -54,7 +56,7 @@ function Formulario() {
     );
 
     if (nombreDuplicado) {
-      setMensaje("ya existe un registro con ese nombre.");
+      setMensaje("⚠️ Ya existe un registro con ese nombre.");
       return;
     }
 
@@ -64,12 +66,17 @@ function Formulario() {
       const nuevos = [...registros];
       nuevos[indiceEditar] = nuevoDato;
       setRegistros(nuevos);
-      setMensaje("registro actualizado correctamente.");
+      setMensaje("Registro actualizado correctamente.");
       setModoEdicion(false);
       setIndiceEditar(null);
     } else {
       setRegistros([...registros, nuevoDato]);
-      setMensaje("registro creado correctamente.");
+      setMensaje("Registro creado correctamente.");
+      try {
+        await addDoc(collection(db, "actividades"), nuevoDato);
+      } catch (error) {
+        console.error("Error al guardar en Firestore:", error);
+      }
     }
 
     setDatos({
@@ -173,7 +180,7 @@ function Formulario() {
         </label>
         <br />
 
-        <button type="submit">{modoEdicion ? "actualizar" : "enviar"}</button>
+        <button type="submit">{modoEdicion ? "Actualizar" : "Enviar"}</button>
         {mensaje && <p>{mensaje}</p>}
       </form>
 
