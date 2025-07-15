@@ -1,0 +1,86 @@
+enlance de GitHub: https://github.com/allan-alquinta/prueba3
+enlance de youtube:https://www.youtube.com/watch?v=Bk7CmHY0HM0&t=27s
+
+evidencia de descripción sobre los commit totales:
+(Registro formal de commits - proyecto react “prueba3”)
+
+Commit 1: Inicialización del entorno de desarrollo
+Se ejecuta npx create-react-app prueba3 para generar la estructura base del proyecto conforme a los estándares de una SPA en React. 
+Se incluyen carpetas public, src y archivos de configuración inicial.
+
+ Commit 2: Implementación del formulario base controlado
+Se desarrolla un componente <Formulario /> con los cinco campos exigidos por la rúbrica:
+
+- input type="text" para el nombre del gestor responsable.
+
+- input type="number" para la edad del participante.
+
+- input type="date" para la fecha de la actividad.
+
+- select para el tipo de actividad (menú desplegable).
+
+- textarea para la descripción detallada.
+
+Todos los campos se enlazan con useState para garantizar control completo del estado del formulario.
+
+
+Commit 3: Persistencia de datos con Local Storage
+Se incorpora useEffect para recuperar y guardar automáticamente los registros mediante localStorage. Esta medida asegura la persistencia de datos sin conexión a servidores externos, tal como lo exige el contexto planteado.
+
+Commit 4: desarrollo de funcionalidad CRUD completa
+Se habilita la gestión completa de los registros:
+
+Crear: ingreso de nuevos datos.
+
+Leer: visualización de registros almacenados.
+
+Actualizar: edición de un registro mediante modoEdicion y indiceEditar.
+
+Eliminar: borrado individual de entradas del listado.
+
+Cada acción actualiza la interfaz y sincroniza con localStorage.
+
+
+ Commit 5: Validaciones y mensajes de retroalimentación
+Se implementan validaciones mínimas:
+
+Prevención de registros duplicados por nombre.
+
+Mensajes de éxito o advertencia al usuario, con retroalimentación visual mediante setMensaje().
+
+Commit 6: Mejora de visualización de registros
+Se reemplaza la visualización tipo <ul> por una tabla <table> estructurada con encabezados. Esta medida mejora la legibilidad y claridad de los datos, favoreciendo la revisión docente y del usuario final.
+
+Commit 7: Adecuación semántica y contextual
+Se adaptan los textos de los campos y se crea una función de traducción de categorías para representar correctamente:
+
+- Taller
+
+- Reunión
+
+- Proyecto
+
+- Otros
+Los campos del formulario se renombraron para mayor coherencia con el contexto de una organización comunitaria.
+
+Commit 8: Identidad institucional y contexto social
+Se incorpora un encabezado institucional:
+“Comunidad Indígena Diaguita de la Sierra del Medio, Copiapó”
+
+Esto responde a la consigna de adecuar el enfoque del sistema a una organización real o simulada.
+
+Commit 9 final: Verificación final funcional y generación de documentación
+
+- En este commit no se introdujeron cambios estructurales ni estéticos significativos al sistema. Su objetivo fue:
+
+- Realizar una revisión integral del funcionamiento de la aplicación, confirmando el cumplimiento de todos los requerimientos funcionales exigidos en la pauta.
+
+- Comprobar que los registros se gestionan correctamente mediante Local Storage.
+
+- Verificar que la validación, edición, eliminación y persistencia de datos operan sin errores.
+
+- Asegurar que el código fuente se encuentra organizado, sin errores en consola, y que los estilos se presentan de forma coherente.
+
+- Generar y registrar el bloc de notas solicitado por la pauta, con la explicación técnica de los commits y del flujo de datos de la aplicación.
+
+Este commit marca el cierre oficial del proyecto, dejándolo en condiciones óptimas para su evaluación y respaldo público en GitHub.
