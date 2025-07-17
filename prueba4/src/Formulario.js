@@ -165,28 +165,28 @@ function Formulario() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>Gestor Responsable (nombre completo del encargado de la actividad):</label>
+        <label>Gestor Responsable (nombre completo del encargado de la actividad)</label>
         <input type="text" name="nombre" value={datos.nombre} onChange={handleChange} required />
 
-        <label>Fecha de Nacimiento (día, mes y año de nacimiento del participante):</label>
+        <label>Fecha de Nacimiento (Ingrese fecha de nacimiento)</label>
         <input type="date" name="fechaNacimiento" value={datos.fechaNacimiento} onChange={handleChange} required />
 
-        <label>Edad (se calcula automáticamente desde la fecha de nacimiento):</label>
+        <label>Edad</label>
         <input type="number" name="edad" value={datos.edad} readOnly />
 
-        <label>Correo Electrónico (dato de contacto del participante o responsable):</label>
+        <label>Correo Electrónico (dato de contacto del participante o responsable)</label>
         <input type="email" name="correo" value={datos.correo} onChange={handleChange} required />
 
-        <label>Teléfono de Contacto (número móvil o fijo para contacto directo):</label>
+        <label>Teléfono de Contacto (número móvil o fijo para contacto directo)</label>
         <input type="tel" name="telefono" value={datos.telefono} onChange={handleChange} required />
 
-        <label>Dirección (indicar claramente calle, sector o localidad):</label>
+        <label>Dirección (indicar claramente calle, sector o localidad)</label>
         <input type="text" name="direccion" value={datos.direccion} onChange={handleChange} required />
 
-        <label>Fecha de la Actividad (día en que se realizará la actividad planificada):</label>
+        <label>Indique la fecha de la actividad a realizar (día en que se realizará la actividad planificada)</label>
         <input type="date" name="fecha" value={datos.fecha} onChange={handleChange} required />
 
-        <label>Tipo de Actividad (categoría: taller, reunión, proyecto u otros):</label>
+        <label>Seleccione el tipo de actividad (categoría: taller, reunión, proyecto u otros)</label>
         <select name="categoria" value={datos.categoria} onChange={handleChange} required>
           <option value="opcion1">Taller</option>
           <option value="opcion2">Reunión</option>
@@ -194,7 +194,7 @@ function Formulario() {
           <option value="opcion4">Otros</option>
         </select>
 
-        <label>Descripción del Proyecto (objetivo, contenido o propósito de la actividad):</label>
+        <label>Descripción del Proyecto (Redacte el objetivo, actividades, recursos necesarios para la actividad)</label>
         <textarea name="descripcion" value={datos.descripcion} onChange={handleChange} required />
 
         <button type="submit">{modoEdicion ? "Actualizar" : "Enviar"}</button>
